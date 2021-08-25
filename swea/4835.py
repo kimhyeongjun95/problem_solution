@@ -15,8 +15,7 @@ for tc in range(1, t+1):
             total += numbers[i+idx]
             idx += 1
         result.append(total)
-    
-    # print(result)
+
     max_result = result[0]
     min_result = result[0]
 
@@ -29,4 +28,4 @@ for tc in range(1, t+1):
 
     answer = max_result - min_result
     
-    print(answer)
+    print('#{} {}'.format(tc, answer))

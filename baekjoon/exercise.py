@@ -1,48 +1,51 @@
-# 1은 on 0은 off
+import sys
+sys.setrecursionlimit(100000)
+
+# 상 우 하 좌
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+def find_area(x, y, height):
+    # for i in range(4):
+    #     visited[x][y] = 1
+    #     nx = x + dx[i]
+    #     ny = y + dy[i]
+
+    #     if -1 < nx < n and -1 < ny < n and area[nx][ny] > height and visited[nx][ny] == 0:
+    #         find_area(nx, ny, height)
+
+    stack = [(x, y)]
+
+    while stack:
+        x, y = stack.pop()
+
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            
+            if 0 <= nx < n and 0 <= ny < n and area[nx][ny] > height and visited[nx][ny] == 0:
+                visited[nx][ny] = 1
+                stack.append((nx, ny))
 
 n = int(input())
-switches = list(map(int, input().split()))
-s_number = int(input())
+area = [list(map(int, input().split())) for _ in range(n)]
 
-# 남자는 자신의 배수
-# 여자는 자신을 중심으로
+temp = []
+for i in area:
+    temp.append(max(i))
+max_height = max(temp)
 
-for _ in range(s_number):
-    gen, num = map(int, input().split())
+answer = []
+for height in range(max_height+1):
+    count = 0
+    visited = [[0] * n for _ in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if area[i][j] > height and visited[i][j] == 0:
+                visited[i][j] = 1
+                find_area(i, j, height)
+                count += 1
+    # print(visited)
+    answer.append(count)
 
-    if gen == 1: # 남자라면
-        for i in range(len(switches)):
-            if (i+1) % num == 0:
-                if switches[i] == 0:
-                    switches[i] = 1
-                else:
-                    switches[i] = 0
-        # print(switches)
-    
-    else: # 여자라면
-        idx = 1
-        num -= 1 # 인덱싱 편의
-        if switches[num] == 1:
-            switches[num] = 0
-        else:
-            switches[num] = 1
-        
-
-        while num - idx >= 0 and num + idx < len(switches):
-            if switches[num+idx] == switches[num-idx]:
-                if switches[num+idx] == 1:
-                    switches[num+idx] = 0
-                    switches[num-idx] = 0
-                else:
-                    switches[num+idx] = 1
-                    switches[num-idx] = 1
-            else:
-                break
-
-            idx += 1
-        num += 1
-
-for i in range(len(switches)):
-    if i and i % 20 == 0:
-        print()
-    print(switches[i], end=' ')
+print(max(answer))
