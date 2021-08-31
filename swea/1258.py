@@ -1,11 +1,14 @@
+import sys
+sys.stdin = open('input.txt')
+
 def finder(x, y):
 
     nx = 0
-    while x + nx < h and arr[x+nx][y] != 0:
+    while x + nx < n and arr[x+nx][y] != 0:
         nx += 1
 
     ny = 0
-    while y + ny < w and arr[x][y+ny] != 0:
+    while y + ny < n and arr[x][y+ny] != 0:
         ny += 1
 
     for i in range(x, x+nx):
