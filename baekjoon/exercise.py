@@ -1,13 +1,14 @@
-# 같은 색상이 상하좌우 인접 -> 같은 구역
-# 적록색약 R, G 같은 색상으로 보임
+# N x N 2차원 행렬
+# M : 물고기
+# 아기 상어 : 1 마리
+# 한 칸에는 물고기가 최대 1마리 / 아기 상어의 크기는 처음에 2
 
-# RRRBB 00011
-# GGBBB 00111
-# BBBRR 11100
-# BBRRR 11000
-# RRRRR 00000
-# 적록색약은 3개로 보이고 아닌사람은 4개로 보임. (구역)
-# dfs or bfs
+# if 아기상어 > 물고기 : eat
+# elif 아기상어 == 물고기 : pass
+# elif 아기상어 < 물고기 : not pass
 
-import sys
-input = sys.stdin.readline
+# if eatable == 1: go
+# elif eatable > 1: go nearest
+#     when moving / pass min
+#     여러개라면 위 -> 왼쪽 ???
+# elif eatable == 0: call mom shark
