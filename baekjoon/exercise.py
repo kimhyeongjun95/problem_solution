@@ -12,3 +12,4 @@
 #     when moving / pass min
 #     여러개라면 위 -> 왼쪽 ???
 # elif eatable == 0: call mom shark
+# 어떻게 풀면 좋을까??
