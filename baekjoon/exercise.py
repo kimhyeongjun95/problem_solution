@@ -1,36 +1,70 @@
-# 0이 들어오면 가장 큰값 출력, 배열에서 제거 // 0배열이 비어있으면 0 출력
-# x가 자연수라면 배열에 x라는 값을 넣는 연산. 
+# if 폭발 문자열 in 문자열:
+#     모든 폭발 문자열 -> 폭발
+#     남은 문자열 새로 이어붙임.
+#     새로 생긴 문자열이 폭발 문자열일수도
 
-# n = int(input())
-# arr = []
-# for _ in range(n):
-#     x = int(input())
+# 남아 있는 문자가 없으면 'FRULA'
 
-#     if x > 0:
-#         arr.append(x)
-#     else: # 0이라면
-#         if arr:
-#             print(arr)
-#             print(arr.pop(arr.index(max(arr))))
-#         else:
-#             print(0)
-
-# 힙을 구현해야되나보다
-
+# 방법 
+# 1: 리스트로 remove
+# 2. 문자열 슬라이싱
+# 3. 2중 반복문?
 import sys
-import heapq
 
-n = int(sys.stdin.readline())
-heap = []
-for _ in range(n):
-    x = int(sys.stdin.readline())
-    # if x == 0:
-    #     if heap: # 가장 큰값 출력하고 배열에서 제거하기
-    #         print(heapq.heappop(heap)[1])
-    #     else: 
-    #         print(0)
-    # else:
-    #     heapq.heappush(heap, (-x, x))
-    # print(heap)
-    heapq.heappush(heap, (-x, x))
-    print(heap)
+S = sys.stdin.readline().strip()
+bomb = sys.stdin.readline().strip()
+
+# print(S, bomb)
+
+# while bomb in S:
+#     i = 0
+#     j = 0
+#     s = S
+
+#     temp = []
+#     while i <= len(s): # s의 길이만큼만
+#         if j > 0 and s[i] != bomb[j]: # 처음 글자만 같을수도 있으니 다시 초기화
+#             j = 0
+#             temp = []
+#         if s[i] == bomb[j]: # C4 : i는 6과 7에 여기서 활성화..
+#             j += 1
+#             temp.append(i)
+
+#         i += 1
+
+#         # print(s, i, j, temp)
+#         if j == len(bomb): # 만약 bomb이 s에 들어가 있다면..
+#             break
+
+#     S = s[:temp[0]] + s[temp[-1]+1:]
+#     # print(S, '결과물')
+while bomb in S:
+    stack = []
+    j = 0
+
+    for i in S:
+        stack.append(i)
+
+        if j > 0 and i != bomb[j]:
+            j = 0
+
+        if i == bomb[j]:
+
+            j += 1
+        
+        if j == len(bomb):
+            for _ in range(j):
+                stack.pop()
+            j = 0
+
+        # print(i, j, stack)
+
+    S = ''.join(stack)
+
+if S:
+    print(S)
+else:
+    print('FRULA')
+
+# mirkovC4nizCC44
+# C4

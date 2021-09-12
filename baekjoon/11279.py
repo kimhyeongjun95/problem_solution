@@ -22,7 +22,7 @@ import heapq
 
 n = int(sys.stdin.readline())
 heap = []
-
+ 
 for _ in range(n):
     x = int(sys.stdin.readline())
     if x == 0:
@@ -33,4 +33,4 @@ for _ in range(n):
     else: # 0이 아닐때
         heapq.heappush(heap, (-x, x))
     # heapq.heappush(heap, (-x, x))
-    print(heap)
+    # print(heap)
