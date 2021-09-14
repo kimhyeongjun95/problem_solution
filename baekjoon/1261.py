@@ -52,7 +52,7 @@ dxy = [(0, 1), (0, -1), (-1, 0), (1, 0)]
 #             print(i, 'def-visited')
 #         for i in maze:
 #             print(i, 'def-maze')
-#     return visited
+    # return visited
 
 from collections import deque
 
@@ -77,10 +77,10 @@ def path_finder(maze):
                     maze[nx][ny] = maze[x][y] + 1
                     queue.append((nx, ny)) # append를 해주는 것이 핵심!
                     visited[nx][ny] = 1
-    #     for i in visited:
-    #         print(i, 'def-visited')
-    #     for i in maze:
-    #         print(i, 'def-maze')
+        # for i in visited:
+        #     print(i, 'def-visited')
+        # for i in maze:
+        #     print(i, 'def-maze')
     return maze[N-1][M-1] - 10
 
 M, N = map(int, input().split())
@@ -88,8 +88,8 @@ M, N = map(int, input().split())
 maze = [list(map(int, input())) for _ in range(N)]
 maze[0][0] = 10 # 출발 위치 10으로 시작
 answer = path_finder(maze)
-# for i in maze:
-#     print(i, 'maze')
+for i in maze:
+    print(i, 'maze')
 # for i in visited:
 #     print(i, 'visited')
 print(answer)
