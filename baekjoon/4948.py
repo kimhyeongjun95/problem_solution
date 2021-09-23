@@ -7,6 +7,8 @@
 # 11, 13, 17, 19 : 4개
 
 # 개수 구하기
+# 시간초과로 매번 계산하지말고
+# 미리 계산한 numbers에서 구해보자.
 import sys
 input = sys.stdin.readline
 import math
