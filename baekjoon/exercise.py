@@ -1,41 +1,15 @@
-# 백준 4948 베르트랑 공준
+# 백준 1010 다리 놓기
 
-# 베르트랑 공준 : n보다 크고 2n 이하의 소수는
-#                 적어도 하나는 존재한다.
+# 서쪽 : N개의 사이트
+# 동쪽 : M개의 사이트
 
-# 10 < 공준 <= 20
-# 11, 13, 17, 19 : 4개
+# 서쪽의 사이트 개수만큼 다리를 지으려고 하는데
+# 서로 겹쳐질 수 없을때 다리를 지을 수 있는 경우의 수
 
-# 개수 구하기
 import sys
 input = sys.stdin.readline
-import math
 
-def prime_check(n):
-    if n < 2 :
-        return False
-    elif n == 2:
-        return True
-    
-    for i in range(2, int(math.sqrt(n))+1):
-        if n % i == 0:
-            return False
-    return True
+t = int(input())
 
-numbers = []
-for i in range(2, (123456 * 2)+1):
-    if prime_check(i):
-        numbers.append(i)
-
-while True:
-    result = []
-    n = int(input())
-    if n == 0:
-        break
-    double = 2 * n
-
-    for i in numbers:
-        if n < i <= double:
-            result.append(i)
-    print(len(result))
+for i in range(t):
     

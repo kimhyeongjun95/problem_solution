@@ -1,43 +1,34 @@
-import sys
-from collections import deque
-m,n,h = map(int,input().split()) # mn크기, h상자수
-graph = []
-queue = deque([])
- 
-for i in range(h):
-    tmp = []
-    for j in range(n):
-        tmp.append(list(map(int,sys.stdin.readline().split())))
-        for k in range(m):
-            if tmp[j][k]==1:
-                queue.append([i,j,k])
-    graph.append(tmp)
-    
-dx = [-1,1,0,0,0,0]
-dy = [0,0,1,-1,0,0]
-dz = [0,0,0,0,1,-1]
-while(queue):
-    x,y,z = queue.popleft()
-    
-    for i in range(6):
-        a = x+dx[i]
-        b = y+dy[i]
-        c = z+dz[i]
-        if 0<=a<h and 0<=b<n and 0<=c<m and graph[a][b][c]==0:
-            queue.append([a,b,c])
-            graph[a][b][c] = graph[x][y][z]+1
-            
-day = 0
-for i in graph:
-    for j in i:
-        for k in j:
-            if k==0:
-                print(-1)
-                exit(0)
-        day = max(day,max(j))
+def dec_to_bin(num):
 
-for i in graph:
-    for j in i:
-        print(j)
+    result = []
+    while True:
+        num, remainder = divmod(num, 2) # 몫이랑 나머지가 나옴
+        
+        if num < 2:
+            result.append(remainder)
+            result.append(num)
+            break
+        
+        result.append(remainder)
 
-print(day-1)
+    return result[::-1]
+
+def dec_to_base_x(num, base):
+
+    result = []
+    while num: # 몫이 0보다 큰 동안 계속 나누기
+        result.append(num % base)
+        num = num // base
+
+    return ''.join(map(str, result[::-1]))
+
+num = 19
+print(bin(num)) #2
+print(oct(num)) #8
+print(hex(num)) #16
+
+print(dec_to_bin(num))
+print('10진법 => 2진법', dec_to_base_x(num, 2))
+print('10진법 => 3진법', dec_to_base_x(num, 3))
+print('10진법 => 8진법', dec_to_base_x(num, 8))
+print('10진법 => 16진법', dec_to_base_x(num, 16))
