@@ -1,3 +1,2 @@
-arr = [[], []]
-arr[0].append(1)
-print(arr)
+arr = [0]
+print(arr[-1])

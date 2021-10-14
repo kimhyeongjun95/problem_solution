@@ -51,9 +51,7 @@ def rotater(number, direction):
             break
         count += 1
     
-    print(number, count, number+count, 'here')
     for i in range(number, number+count):
-        print(i, 'iii')
         rotate(gears[i+1], temp_direction2)
         temp_direction2 = -temp_direction2 # 회전이 바뀜
 
@@ -80,11 +78,7 @@ for _ in range(k):
     rotater(number, direction)
     # 마지막 자기자신 돌리기
     rotate(gears[number], direction)
-    for i in gears:
-        print(i, 'gears')
 
-# for i in gears:
-#     print(i)
 answer = 0
 for i in range(4):
     answer += (2**i) * gears[i][0]
