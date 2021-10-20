@@ -5,6 +5,7 @@
 
 import sys
 input = sys.stdin.readline
+sys.setrecursionlimit(100000)
 
 def finder(parent, x):
 
