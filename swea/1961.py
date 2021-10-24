@@ -1,5 +1,4 @@
-import sys
-sys.stdin = open('input.txt')
+# SWEA 1961 숫자 배열 회전
 
 def turning(matrix):
     answer = []
