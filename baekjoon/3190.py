@@ -55,8 +55,8 @@ def snake():
             x, y = tail.popleft()
             board[x][y] = 0 # 꼬리제거
         
-        board[nx][ny] = 1
-        tail.append((nx, ny))
+        board[nx][ny] = 1 # 만나던지 못만나던지 계속 이동
+        tail.append((nx, ny)) # 꼬리위치 갱신
 
 
 n = int(input()) # 보드의 크기
@@ -74,14 +74,6 @@ for _ in range(l):
     t, direction = input().split() # L: 왼쪽, D: 오른쪽
     time.append((t, direction))
 
-
-for i in board:
-    print(i, 'before')
-
 answer = snake()
 
-for i in board:
-    print(i, 'after')
-
-print()
 print(answer)
