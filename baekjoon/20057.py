@@ -12,16 +12,18 @@ input = sys.stdin.readline
     #좌, 하, 우, 상 -> 좌회전
 dx = [0, 1, 0, -1]
 dy = [-1, 0, 1, 0]
+
+
 left = [
     (0, -2, 0.05),# 왼쪽왼쪽
     (1, -1, 0.1), # 아래왼쪽
     (-1, -1, 0.1),# 위왼쪽
     (1, 0, 0.07), # 위
     (-1, 0, 0.07),# 아래
-    (2, 0, 0.02), # 아래아래
     (-2, 0, 0.02),# 위위
-    (1, 1, 0.01), # 위
-    (-1, 1, 0.01),# 아래
+    (2, 0, 0.02), # 아래아래
+    (1, 1, 0.01), # 위오른쪽
+    (-1, 1, 0.01),# 아래오른쪽
     (0, -1, 1)    # 나머지
 ]
 down = [[-y, x, per] for x, y, per in left]
@@ -33,9 +35,10 @@ def shark_tornado():
     direction = 0
     tx = n//2
     ty = n//2 # 시작점
-    visited[tx][ty] = 1
+    visited[tx][ty] = 1                            
     while tx != 0 or ty != 0:
-        nx = tx + dx[direction]
+
+        nx = tx + dx[direction] 
         ny = ty + dy[direction]
         if not visited[nx][ny]:
             tx, ty = nx, ny # 나중에 갈 수 있는 방향인지 확인해야하기 때문이다
