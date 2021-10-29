@@ -18,10 +18,10 @@ for i in range(w):
     for j in range(arr[i]):
         world[i][j] = 1     # 블록을 1로 표시
 
-count = 0
 answer = 0
 for i in range(h):
     flag = False # 블록을 만나기 전
+    count = 0
     for j in range(w):
         if not flag and world[j][i] == 1:
             flag = True
@@ -33,7 +33,5 @@ for i in range(h):
         elif flag and world[j][i] == 1:
             answer += count
             count = 0
-        
-        print(i, j)
-            
+                    
 print(answer)
