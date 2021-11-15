@@ -1,57 +1,13 @@
-# 맨 처음 왼쪽 * 오른쪽 # 시작
-# 대각선은 갈수 없음, 상하좌우만 가능
+# 프로그래머스 [카카오 인턴] 수식 최대화
 
-from collections import deque
 
-def solution(numbers, hand):
-    distance = {
-        '1':{'2': 1, '5': 2, '8': 3, '0': 4},
-        '2':{'2': 0, '5': 1, '8': 2, '0': 3},
-        '3':{'2': 1, '5': 2, '8': 3, '0': 4},
-        '4':{'2': 2, '5': 1, '8': 2, '0': 3},
-        '5':{'2': 1, '5': 0, '8': 1, '0': 2},
-        '6':{'2': 2, '5': 1, '8': 2, '0': 3},
-        '7':{'2': 3, '5': 2, '8': 1, '0': 2},
-        '8':{'2': 2, '5': 1, '8': 0, '0': 1},
-        '9':{'2': 3, '5': 2, '8': 1, '0': 2},
-        '0':{'2': 3, '5': 2, '8': 1, '0': 0},
-        '*':{'2': 4, '5': 3, '8': 2, '0': 1},
-        '#':{'2': 4, '5': 3, '8': 2, '0': 1}
-    }
-    answer = '' # 정답
-    lh = '*' # 초기값
-    rh = '#'
-    for i in numbers:
-        if i in [1, 4, 7, '*']:
-            answer += 'L'
-            lh = str(i)
-        
-        elif i in [3, 6, 9, '#']:
-            answer += 'R'
-            rh = str(i)
+def solution(expression):
+    # 3가지의 연산문자
+    # 우선순위를 재정의한다. / 동일한 순위 불가능
+    # 음수라면 해당 숫자 절대값 변환
 
-        else: # 만약 가운데 열이 나온다면..
-            if distance[lh][str(i)] < distance[rh][str(i)]: # 왼쪽이 짧다면
-                lh = str(i)
-                answer += 'L'
-            
-            elif distance[lh][str(i)] > distance[rh][str(i)]: # 오른쪽이 짧다면
-                rh = str(i)
-                answer += 'R'
-            
-            else: # 거리가 같다면
-                if hand == 'left':
-                    lh = str(i)
-                    answer += 'L'
-                else:
-                    rh = str(i)
-                    answer += 'R'
     
-    return answer
 
 
-
-
-numbers = [1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5]
-hand = "right"
-print(solution(numbers, hand))
+print(solution("100-200*300-500+20")) # 60420
+print(solution("50*6-3*2")) # 300
