@@ -28,7 +28,6 @@ def calculator(poss, idx, express):
             temp = []
             for s in splited:
                 temp.append(calculator(poss, idx+1, s))
-            print(temp, poss)
             return str(eval('*'.join(temp)))
 
 def solution(expression):

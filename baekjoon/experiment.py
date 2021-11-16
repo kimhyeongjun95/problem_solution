@@ -1,32 +1,19 @@
-# 백준 7568 덩치
+# 프로그래머스 위클리 챌린지 9주차 : 전력망을 둘로 나누기
 
-# x kg , y cm -> (x, y)
-# (x, y) (p, q)
-# if x > p and y > q라면 A의 덩치가 B의 덩치보다 크다.
+# 2개로 분할해서
+# 송전탑 개수의 차이 최소값
 
-# 자신보다 더 큰 덩치의 사람이 k명이라면, 그 사람의 덩치등수는 k+1
-# 각 사람의 덩치 등수를 계산하여 출력
+from collections import defaultdict
+def solution(n, wires):
+    
+    result = []
+    tree = defaultdict(list)
+    for one, two in wires:
+        tree[one].append(two)
+        tree[two].append(one)
 
-import sys
-input = sys.stdin.readline
+    for one, two in wires:
+        tree[one].remove(two)
+        tree[two].remove(one)
 
-n = int(input())
-people = []
-for _ in range(n):
-    x, y = map(int, input().split())
-    people.append((x, y))
-
-answer = []
-for i in range(len(people)):
-    x = people[i][0] 
-    y = people[i][1] 
-    count = 0
-    for j in range(len(people)):
-        if i == j:
-            continue
-
-        if x < people[j][0] and y < people[j][1]:
-            count += 1
-
-    answer.append(count+1)
-print(*answer)
+print(solution(9, [[1,3],[2,3],[3,4],[4,5],[4,6],[4,7],[7,8],[7,9]]))
