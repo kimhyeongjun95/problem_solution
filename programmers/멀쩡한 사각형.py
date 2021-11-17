@@ -13,13 +13,9 @@ def solution(w,h):
     while y:
         z = x % y
         x, y = y, z
-    
-    print(w,h,z)
+
     return (w*h) - (w+h-x)
-
-
-
-
+    # 다음부턴 math 라이브러리 쓰자(자꾸 까먹음)
 
 
 print(solution(8, 12))
