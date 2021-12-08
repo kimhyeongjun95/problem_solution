@@ -1,19 +1,36 @@
-# 프로그래머스 위클리 챌린지 9주차 : 전력망을 둘로 나누기
+dxy = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
-# 2개로 분할해서
-# 송전탑 개수의 차이 최소값
+def start(n, m, mountain):
+    for i in range(n):
+        for j in range(m):
+            if mountain[i][j] == 2:
+                return i, j
 
-from collections import defaultdict
-def solution(n, wires):
+def climb(visited):
+
+    while queue:
+        x, y = queue.popleft()
+
+        for dx, dy in dxy:
+            nx = x + dx
+            ny = y + dy
+
+            if -1 < nx < m and -1 < ny < n:
+                if not visited[nx][ny] and not count:
+
+
     
-    result = []
-    tree = defaultdict(list)
-    for one, two in wires:
-        tree[one].append(two)
-        tree[two].append(one)
 
-    for one, two in wires:
-        tree[one].remove(two)
-        tree[two].remove(one)
+t = int(input())
+for tc in range(1, t+1):
+    m, n, l = map(int, input().split())
+    count = l
+    mountain = [list(map(int, input().split())) for _ in range(n)]
+    visited = [[0] * m for _ in range(n)]
 
-print(solution(9, [[1,3],[2,3],[3,4],[4,5],[4,6],[4,7],[7,8],[7,9]]))
+    result = 0
+    answer = 0
+    x, y = start()
+    queue = deque([(x, y)])
+    visited[x][y] = 1
+    climb()

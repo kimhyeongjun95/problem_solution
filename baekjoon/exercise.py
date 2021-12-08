@@ -1,42 +1,12 @@
-# 백준 14888 연산자 끼워넣기
+# 백준 2096
 
-# n개의 수로 이루어진 수열과 n-1개의 연산자
-# 최대값 최소값 출력
+# 밑으로 내려가기
+# 최대점수와 최소 점수 출력하기
+# DP문제
 
+import sys
+input = sys.stdin.readline()
 n = int(input())
-numbers = list(map(int, input().split()))
-plus, minus, mul, div = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(n)]
 
-min_result = float('inf')
-max_result = float('-inf')
-
-#dfs로 탐색
-def dfs(i, now):
-    global min_result, max_result, plus, minus, mul, div
-
-    if i == n:
-        min_result = min(min_result, now)
-        max_result = max(max_result, now)
-
-    else:
-        if plus > 0:
-            plus -= 1
-            dfs(i+1, now+numbers[i])
-            plus += 1
-        if minus > 0:
-            minus -= 1
-            dfs(i+1, now-numbers[i])
-            minus += 1
-        if mul > 0:
-            mul -= 1
-            dfs(i+1, now*numbers[i])
-            mul += 1
-        if div > 0:
-            div -= 1
-            dfs(i+1, now/numbers[i])
-            div += 1
-
-dfs(1, numbers[0])
-
-print(max_result)
-print(min_result)
+for i in range(n):

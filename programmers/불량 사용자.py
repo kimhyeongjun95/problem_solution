@@ -27,7 +27,7 @@ def solution(user_id, banned_id):
             if permut not in result:
                 result.append(permut)
     
-    return result
+    return len(result)
 
 
     
