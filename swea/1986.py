@@ -1,26 +1,16 @@
-# SWEA 1986 초심자의 회문 검사
+# SWEA 1986 지그재그 숫자
 
 t = int(input())
 for tc in range(1, t+1):
-    s = input()
+    n = int(input())
+    number = 1
+    answer = 0
+    while number < n+1:
+        if number % 2:
+            answer += number
+        else:
+            answer -= number
+        
+        number += 1
 
-    mid = len(s) // 2
-
-    left = []
-    for i in range(mid):
-        left.append(s[i])
-
-    right = []
-    if len(s) % 2 == 0:
-        for i in range(len(s)-1, mid-1, -1):
-            right.append(s[i])
-    else:
-        for i in range(len(s)-1, mid, -1):
-            right.append(s[i])
-    
-    if left == right:
-        answer = 1
-    else:
-        answer = 0
-    
     print(f'#{tc} {answer}')
