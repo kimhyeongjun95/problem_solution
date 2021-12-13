@@ -32,8 +32,3 @@ for tc in range(1, t+1):
     answer = calculator(price)
 
     print(f'#{tc} {answer}')
-
-# 10
-# 629 3497 7202 7775 4325 3982 4784 8417 2156 1932
-# #3 20065 
-# 26725가 나와야됌
