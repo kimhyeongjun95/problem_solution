@@ -41,8 +41,8 @@ def solution(s):
     answer = []
     s = s[2:-2]
     s = s.split("},{")
-    print(s)
     s = sorted(s, key=lambda x: len(x))
+    
     for i in s:
         temp = i.split(',')
         for j in temp:
