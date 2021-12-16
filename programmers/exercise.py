@@ -1,56 +1,38 @@
-# 프로그래머스 튜플
+# 프로그래머스 다단계 칫솔 판매
+# 10% 가 추천인에게 넘어감.
+# 원 단위에서 절사, 10%가 1원 미만인 경우 모든 이익은 자신이 가짐
 
-# 1. 중복된 원소가 있을 수 있음
-# 2. 순서 O, 순서가 다르면 -> 다른 튜플
-# 3. 원소 개수는 유한
+# enroll 순서대로 이익금 리스트 return
+# enroll[i] -> referral[i] 추천인 (하 -> 상)
+# 추천인 x -> '-'
+# 칫솔 1개 100원
+import math
+def solution(enroll, referral, seller, amount):
+    profit = [0] * len(enroll)
 
-# 중복되는 원소가 없는 튜플이 주어지면, '집합'을 이용해 표현
-# 제일 작은 원소부터 확인해야할듯
+    for i in range(len(seller)):
+        idx = enroll.index(seller[i])
+        money = amount[i] * 100
+        while True:
+            if (money*0.1) >= 1:
+                profit[idx] += math.ceil(money * 0.9)
+                parent_idx = referral[idx]
+                if parent_idx == '-':
+                    break
+                parent_idx = enroll.index(referral[idx])
+                if math.ceil(money*0.1) > 1:
+                    money = math.ceil(money*0.1)
+                idx = parent_idx
 
-# def solution(s):
-#     answer = []
-#     temp = []
-#     result = []
-#     s = s[1:-1]
-#     # s = s.split(',')
-#     print(s)
-#     count = []
-#     for i in range(len(s)):
-#         if s[i] == '{':
-#             temp = ''
-#         elif s[i] == '}':
-#             result.append(list(temp))
-#         elif s[i] == ',' and s[i+1].isdigit():
-#             result.append(list(temp))
-#             temp = ''
-#         elif s[i] == ',':
-#             continue
-#         else:
-#             temp += s[i]
-#     print(result)
-#     result = sorted(result, key=lambda x: len(x))
+            else:
+                profit[idx] += money
+                break
+    
+    return profit
 
-#     for i in result:
-#         for j in i:
-#             if j not in answer:
-#                 answer.append(j)
-#     print(result)
-#     return answer
-
-def solution(s):
-    answer = []
-    s = s[2:-2]
-    s = s.split("},{")
-    print(s)
-    s = sorted(s, key=lambda x: len(x))
-    for i in s:
-        temp = i.split(',')
-        for j in temp:
-            if int(j) not in answer:
-                answer.append(int(j))
-    return answer
-
-print(solution("{{2},{2,1},{2,1,3},{2,1,3,4}}")) # [2, 1, 3, 4]
-print(solution("{{1,2,3},{2,1},{1,2,4,3},{2}}")) # [2, 1, 3, 4]
-print(solution("{{20,111},{111}}")) # [111, 20]
-print(solution("{{123}}")) # [123]
+print(solution(
+["john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"], # enroll
+["-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"], # referral
+["young", "john", "tod", "emily", "mary"], # seller
+[12, 4, 2, 5, 10])) # amount
+# [360, 958, 108, 0, 450, 18, 180, 1080]
