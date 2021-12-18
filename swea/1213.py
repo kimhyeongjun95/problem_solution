@@ -9,4 +9,5 @@ for _ in range(1, 11):
     for i in range(len(word)-len(s)+1):
         if word[i:i+len(s)] == s:
             count += 1
+            
     print(f'#{tc} {count}')

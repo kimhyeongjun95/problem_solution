@@ -9,7 +9,6 @@ def dijkstra(start, graph, N, K):
     
     while queue:
         long, now = queue.popleft()
-        print(long, now, '-------------------------')
         # 방문했다면
         if distance[now] < long:
             continue 
@@ -35,8 +34,7 @@ def solution(N, road, K):
         a, b, far = r
         graph[a].append((b,far))
         graph[b].append((a,far))
-    
-    
+
     answer = dijkstra(1, graph, N, K)
     return answer
     
