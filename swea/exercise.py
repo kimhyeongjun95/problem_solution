@@ -1,12 +1,17 @@
-# SWEA 1213 String
+# SWEA 1216 회문2
+# 가장 긴 회문의 길이를 구하는 문제
+
+def check(arr):
+    count = 1 # 제일 작은 길이는 1
+
+    # 가로
+    garo = []
+    for i in range(100):
+        for j in range(100):
+            for k in range()
+            if arr[i][j:j+n] == arr[i][j:j]
 
 for _ in range(1, 11):
     tc = int(input())
-    s = input()
-    word = input()
-
-    count = 0
-    for i in range(len(word)-len(s)+1):
-        if word[i:i+len(s)] == s:
-            count += 1
-    print(f'#{tc} {count}')
+    arr = [list(input()) for _ in range(100)]
+    check(arr)

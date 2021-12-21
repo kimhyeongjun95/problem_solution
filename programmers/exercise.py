@@ -1,33 +1,10 @@
-# 프로그래머스 다단계 칫솔 판매
-# 10% 가 추천인에게 넘어감.
-# 원 단위에서 절사, 10%가 1원 미만인 경우 모든 이익은 자신이 가짐
-
-# enroll 순서대로 이익금 리스트 return
-# enroll[i] -> referral[i] 추천인 (하 -> 상)
-# 추천인 x -> '-'
-# 칫솔 1개 100원
-import math
-def solution(enroll, referral, seller, amount):
-    profit = [0] * len(enroll)
-    check = {}
-    for idx, name in enumerate(enroll):
-        check[name] = idx
-
-    for sold, many in zip(seller, amount):
-        money = many * 100
-        while True:
-            if sold == '-' or money <= 0:
-                break
-            idx = check[sold]
-            profit[idx] += math.ceil(money*0.9)
-            money = money // 10
-            sold = referral[idx]
-    return profit
+# 프로그래머스 피로도
+# 최소 필요 피로도 : 탐험을 시작하기 위해 필요한 
+# 소모 피로도 : 던전 탐험을 마쳤을때 소모되는
 
 
-print(solution(
-["john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"], # enroll
-["-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"], # referral
-["young", "john", "tod", "emily", "mary"], # seller
-[12, 4, 2, 5, 10])) # amount
-# [360, 958, 108, 0, 450, 18, 180, 1080]
+def solution(k, dungeons):
+    answer = -1
+    return answer
+
+print(solution(80, [[80,20],[50,40],[30,10]])) # 3
