@@ -1,22 +1,9 @@
-# 프로그래머스 야근 지수
+# 프로그래머스 스킬트리
 
-import heapq
-def solution(n, works):
-    answer = 0
-    works = [-i for i in works]
-    heapq.heapify(works)
-    while n:
-        temp = heapq.heappop(works) + 1
-        if temp == 1:
-            break
-        heapq.heappush(works, temp)
-        n -= 1
-    
-    for work in works:
-        answer += work ** 2
-    
+# skill: 스킬트리(규칙)
+# skill_tress : 유저들이 스킬 찍는 순서
+def solution(skill, skill_trees):
+    answer = -1
     return answer
     
-print(solution(4, [4, 3, 3])) # 12
-print(solution(1, [2, 1, 2])) # 6
-print(solution(3, [1, 1])) # 0
+print(solution('CBD', ["BACDE", "CBADF", "AECB", "BDA"])) # 2
