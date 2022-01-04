@@ -1,3 +1,4 @@
+# 프로그래머스 보석 쇼핑
 def solution(gems):
     answer = [] 
     shortest = len(gems)
@@ -14,8 +15,8 @@ def solution(gems):
             contained[gems[right]] = 1 
         else:
             contained[gems[right]] += 1 
-            
         right += 1 # 테케 3번
+        
         if len(contained) == length: # 다 들어감
             while left < right: # 만나기 전까지
                 if contained[gems[left]] > 1: # 2개 이상
@@ -27,8 +28,6 @@ def solution(gems):
                     break 
                 else:
                     break
-
-
 
     return answer
 
