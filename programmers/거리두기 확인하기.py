@@ -8,13 +8,12 @@
 # P 응시자
 # O 빈 테이블
 # X 파티션
-from collections import deque
 dxy = [(0,1), (0, -1), (1, 0), (-1, 0)]
 def check(places, i, j, k):
     stack = []
     x = j
     y = k
-    stack = [(x, y, 2)]
+    stack = [(x, y, 3)]
     visited = [[0] * 5 for _ in range(5)]
     visited[j][k] = 1
     while stack:
@@ -24,7 +23,8 @@ def check(places, i, j, k):
             nx = x + dx
             ny = y + dy
             nc = count - 1
-
+            if nc == 0:
+                break
             if -1 < nx < 5 and -1 < ny < 5:
                 if not visited[nx][ny]:
                     if places[i][nx][ny] == 'O':
