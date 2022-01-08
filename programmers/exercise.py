@@ -1,16 +1,8 @@
-# 프로그래머스 
-
 from collections import defaultdict
-def solution(participant, completion):
-    result = defaultdict(int)
-    for i in participant:
-        result[i] += 1
+def solution(arr1, arr2):
+    check = defaultdict(int)
     
-    for i in completion:
-        result[i] -= 1
-    
-    answer = []
-    for key, val in result.items():
-        if val > 0:
-            answer.append(key)
-    return ''.join(answer)
+
+arr1 = [123457, 123458, 123456, 123436, 223344, 113344]
+arr2 = [123456, 123344, 223455]
+print(solution(arr1, arr2))
