@@ -1,4 +1,5 @@
 # 프로그래머스 이중우선순위 큐
+
 def solution(operations):
     answer = []
     for operation in operations:
