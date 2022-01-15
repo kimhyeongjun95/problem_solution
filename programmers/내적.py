@@ -1,9 +1,9 @@
-# 프로그래머스 LEVEL 1: 월간코드 챌린지 시즌 1 > 내적
-
+# 프로그래머스 내적
 def solution(a, b):
-    # a와 b의 길이는 동일하다.
     answer = 0
-    for i in range(len(a)):
-        answer += (a[i]*b[i])
-        
+    for i, j in zip(a, b):
+        answer += i*j
     return answer
+
+print(solution([1,2,3,4], [-3,-1,0,2])) # 3
+
