@@ -25,12 +25,10 @@ def solution(dartResult):
                 length = 0
             for i in range(length, len(result)):
                 result[i] = result[i] * 2
-                # print('hey', i)
         elif i == '#':
             result[-1] = result[-1] * -1
         else:
             temp += i
-        # print(result, i)
     return sum(result)
 
 print(solution('1S2D*3T')) # 37
