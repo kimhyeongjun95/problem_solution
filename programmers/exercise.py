@@ -1,31 +1,64 @@
-# 프로그래머스 입국 심사
+# 프로그래머스 주차 요금 계산
 
-def solution(n, times):
-    
-    # n: 입국 심사를 기다리는 사람 수
-    # times : 각 심사관이 한 명을 심사하는데 걸리는 시간이 담긴 배열
-    # return 모든 사람이 심사를 받는데 걸리는 시간의 최솟값
+# 출차된 내역 x -> 23:59 출차
+# 차량별 누적주차 시간 계산
+# 차량번호 오름차순으로 주차요금 return
 
-    answer = 0
-    left = 1
-    right = max(times) * n
 
-    while left < right:
-        mid = (left + right) // 2
-        temp = 0
+from collections import defaultdict
+import math
 
-        for time in times:
-            temp += mid // time
+def solution(fees, records):
+    # 기본시간 기본요금 단위시간 단위요금
+    basic_min, basic_rate, unit_min, unit_rate = fees
 
-        # 심사한 사람수가 n 이상
-        if temp >= n:
-            answer = mid
-            right = mid - 1
+    recorder = defaultdict(int)
+    center = defaultdict(int)    
+    pay = defaultdict(int)
+
+    for record in records:
+        time, car, action = record.split(' ')
         
-        # 심사한 사람수가 n 미만
-        elif temp < n:
-            left = mid + 1
+        # 들어옴
+        if action == 'IN':
+            sh, sm = time.split(':')
+            how_long = (int(sh) * 60) + (int(sm))
+            recorder[car] = how_long
+        
+        # 나감
+        else:
+            start_time = recorder[car]
+            recorder[car] = 0
+            eh, em = time.split(':')
+            end_time = (int(eh) * 60) + (int(em))
+            center[car] += end_time - start_time
 
+    # 출차 내역 X
+    for car, val in recorder.items():
+        if val > 0:
+            end_time = (23 * 60) + 59
+            center[car] += end_time - val
+
+    print(center)
+    for car_number, pay_time in center.items():
+        # 기본 시간 초과
+        if pay_time > basic_min:
+            bill = basic_rate + (math.ceil((pay_time - basic_min) / unit_min) * unit_rate)
+            pay[car_number] = bill
+        # 기본 시간 내
+        else:
+            pay[car_number] = basic_rate
+    
+    answer = sorted(pay.items(), key=lambda x: x[0])
+    answer = [i[1] for i in answer]
     return answer
+        
+            
 
-print(solution(6, [7, 10])) # 28
+
+
+        
+
+print(solution([180, 5000, 10, 600], 
+["05:34 5961 IN", "06:00 0000 IN", "06:34 0000 OUT", "07:59 5961 OUT", "07:59 0148 IN", "18:59 0000 IN", "19:09 0148 OUT", "22:59 5961 IN", "23:00 5961 OUT"]))
+# [14600, 34400, 5000]
