@@ -4,7 +4,6 @@
 # 차량별 누적주차 시간 계산
 # 차량번호 오름차순으로 주차요금 return
 
-
 from collections import defaultdict
 import math
 
