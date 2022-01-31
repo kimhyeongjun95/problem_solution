@@ -75,7 +75,7 @@ print(solution("...!@BaT#*..y.abcdefghijklm"))
 print(solution("z-+.^."	))
 # "z--"
 print(solution("=.="	))
-# ""aaa"
+# "aaa"
 print(solution("123_.def"))
 # "123_.def"
 print(solution("abcdefghijklmn.p"	))
