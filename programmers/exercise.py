@@ -1,44 +1,28 @@
-# 프로그래머스 신고 결과 받기
+# 프로그래머스 아이템 줍기
 
-# 각 유저는 한 번에 한명의 유저 신고
-# - 횟수 제한 x
-# - 한 유저 - 동일한 유저 - 1회 처리
-# k번 이상 -> 정지
-# 신고한 모든 유저에게 정지사실 메일로 발송
+# 다각형의 둘레를 따라서 이동
+# 꼭지점이 겹치거나 변이 겹치는 경우 X
 
-# 각 유저별로 처리결과 메일 횟수 배열 return
-from collections import defaultdict
-def solution(id_list, report, k_num):
-    answer = [0] * len(id_list)
-    suspended = defaultdict(set)
-    result = defaultdict(int)
-    banned = set()
-    answer_num = defaultdict(int)
-    for act in report:
-        reporter, ted = act.split(' ')
-        suspended[reporter].add(ted)
-    for i, j in suspended.items():
-        for k in j:
-            result[k] += 1
+# 아이템을 줍기위해 가장 짧은 거리 return
 
-    for key, val in result.items():
-        if val >= k_num:
-            banned.add(key)
+def solution(rectangle, characterX, characterY, itemX, itemY):
+    max_x, max_y = 0, 0
+    for rect in rectangle:
+        x1, y1, x2, y2 = rect
+        max_x = max(max_x, x2)
+        max_y = max(max_y, y2)
+    max_x += 1
+    max_y += 1
+    world = [[0] * max_x for _ in range(max_y)]
+    for rect in rectangle:
+        x1, y1, x2, y2 = rect
+        for i in range(x1, x2):
+            for j in range(y1, y2):
+                world[j][i] = 1
 
-    for i, j in suspended.items():
-        for k in j:
-            if k in banned:
-                answer_num[i] += 1
-    
-    for i in range(len(answer)):
-        answer[i] = answer_num[id_list[i]]
-    return answer
-
-    
-
-            
+    for i in range(len(world)-1, -1, -1):
+        print(world[i])
 
 
-
-print(solution(["muzi", "frodo", "apeach", "neo"],["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"],2))
-# [2, 1, 1, 0]
+print(solution([[1,1,7,4],[3,2,5,5],[4,3,6,9],[2,6,8,8]], 1, 3, 7, 8)) # 17
+# print(solution([[1,1,8,4],[2,2,4,9],[3,6,9,8],[6,3,7,7]], 9, 7, 6, 1)) # 11
