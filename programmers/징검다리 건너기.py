@@ -36,7 +36,7 @@ def solution(stones, k):
                     break
             else:
                 count = 0
-        
+
         if count == k:
             right = mid - 1
         else:
