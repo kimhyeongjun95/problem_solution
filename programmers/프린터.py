@@ -26,7 +26,7 @@ def solution(priorities, location):
 				return answer
 			priorities.popleft()
 			idx = (idx - 1) % len(priorities)
-			print(idx)
+			
 	return answer
 
 print(solution([2, 1, 3, 2], 2)) # 1
