@@ -1,4 +1,4 @@
-# SWEA 6485 삼성시의 버스 노선
+# SWEA 2806 N-Queen
 
 def diagonalPass(row, col):
     for i in range(row):
@@ -15,10 +15,10 @@ def check(idx):
         return
 
     for i in range(n):
-        # row / diagonal 체크
+        # col / diagonal 체크
         if not visited[i] and diagonalPass(idx, i):
-            visited[i] = 1
-            arr[idx] = i
+            visited[i] = 1 # 행 표시
+            arr[idx] = i # 열 표시
             check(idx+1)
             visited[i] = 0
 
@@ -28,7 +28,6 @@ for tc in range(1, t+1):
     answer = 0
     arr = [0 for _ in range(n)]
     visited = [0 for _ in range(n)]
-
     check(0)
 
     print(f'#{tc} {answer}')
