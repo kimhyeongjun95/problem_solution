@@ -12,12 +12,13 @@ def check(idx, n):
 
 	if idx == n:
 		answer += 1
+		print(arr, visited)
 		return
 
 	for i in range(n):
 		# col / diagonal 체크
 		if not visited[i] and diagonalPass(idx, i):
-			visited[i] = 1 # 행 표시
+			visited[i] = 1 # 열 표시
 			arr[idx] = i # 열 표시
 			check(idx+1, n)
 			visited[i] = 0
