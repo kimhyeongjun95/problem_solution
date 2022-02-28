@@ -1,83 +1,87 @@
-# 백준 21608 상어 초등학교
+# 백준 13460 구슬 탈출 2
 
-# 교실 N x N
-# 학생 수 N^2
+# 빨간 구슬을 구멍을 통해서 빼내기 / 파란 구슬 실패 / 동시에 빠져도 실패
+# 왼쪽 / 오른쪽 / 위쪽 / 아래쪽 기울이기 가능
 
-# 학생의 자리를 정하려고 한다
+# '.' : 빈 칸
+# '#' : 장애물 또는 벽
+# 'O' : 구멍 위치
+# 'R' : 빨간 구슬의 위치
+# 'B' : 파란 구슬의 위치
 
-# 1. 비어있는 칸 중 좋아하는 학생이 인접한 칸에 가장 많은 칸
-# 2. 1 만족 다수 -> 인접한 칸 중 비어있는 칸이 가장 많은 칸
-# 3. 2 만족 여러 개 -> 3-1. 행의 번호가 가장 작은 칸, 3-2. 여러 개 -> 열의 번호가 가장 작은 칸
+# 최소 몇 번 만에 구멍을 통해 빼낼 수 있는가? / 10번 초과 -> -1
 
-# 학생의 만족도 총합 출력
+# 1. DFS로 R을 O까지 이동
+# 2. R의 움직임에 따라 B를 움직이도록하고
+# 3. B가 O에 도착하는지 안하는지 보기
 
-# 3
-# 4 2 5 1 7 // 2
-# 3 1 9 4 5 // 3
-# 9 8 1 2 3
-# 8 1 9 3 4
-# 7 2 3 4 8
-# 1 9 2 5 7
-# 6 5 2 3 4
-# 5 1 9 2 8
-# 2 9 3 1 4
-
-def contentCheck(room):
-    answer = 0
-    for i in range(n):
-        for j in range(n):
-            count = 0
-
-            for dx, dy in dxy:
-                nx = dx + i
-                ny = dy + j
-
-                if -1 < nx < n and -1 < ny < n:
-                    if room[nx][ny][0] in room[i][j][1:]:
-                        count += 1
-            if count == 1:
-                answer += 1
-            elif count == 2:
-                answer += 10
-            elif count == 3:
-                answer += 100
-            elif count == 4:
-                answer += 1000
-    return answer
+from collections import deque
 
 dxy = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-n = int(input())
+n, m = map(int, input().split())
+board = [list(input()) for _ in range(n)]
 
-room = [[[0] * 5 for _ in range(n)] for _ in range(n)]
-students = [list(map(int, input().split())) for _ in range(n**2)]
+for i in range(n):
+    for j in range(m):
+        if board[i][j] == 'R':
+            rx, ry = i, j
+        elif board[i][j] == 'B':
+            bx, by = i, j
 
-for student in students:
-    val = student[1:]
-    # [0]좋아하는 학생 수의 합 [1]빈칸의 합
-    seats = [[[0] * 2 for _ in range(n)] for _ in range(n)]
+def toNext(rx, ry, bx, by, k):
+    nrx, nry, nbx, nby = rx, ry, bx, by
 
-    for i in range(n):
-        for j in range(n):
-            if room[i][j][0] == 0:
-                for dx, dy in dxy:
-                    nx = i + dx
-                    ny = j + dy
+    while True:
+        nrx = nrx + dxy[k][0]
+        nry = nry + dxy[k][1]
+        
+        # 구멍
+        if board[nrx][nry] == 'O':
+            nrx, nry = -1, -1
+            break
 
-                    if -1 < nx < n and -1 < ny < n: 
-                        if room[nx][ny][0] == 0:
-                            seats[i][j][1] += 1
-                        elif room[nx][ny][0] in val:
-                            seats[i][j][0] += 1
-    temp = []
-    for i in range(n):
-        for j in range(n):
-            if room[i][j][0] == 0:
-                # 좋아하는 학생수, 빈칸의 합, 좌표
-                temp.append((seats[i][j][0], seats[i][j][1], i, j))
-    # 좋아하는 학생수가 제일 많고 > 빈칸의 합이 큼 > 행 > 열
-    temp.sort(key=lambda x: (-x[0], -x[1], x[2], x[3]))
-    room[temp[0][2]][temp[0][3]] = student
+        # 장애물, 벽
+        elif board[nrx][nry] == '#':
+            nrx = nrx - dxy[k][0]
+            nry = nry - dxy[k][1]
+            break
 
-answer = contentCheck(room)
-print(answer)
+    while True:
+        nbx = nbx + dxy[k][0]
+        nby = nby + dxy[k][1]
 
+        # 구멍
+        if board[nbx][nby] == 'O':
+            nbx, nby = -1, -1
+            break
+
+        # 장애물, 벽
+        elif board[nbx][nby] == '#':
+            nbx = nbx - dxy[k][0]
+            nby = nby - dxy[k][1]
+            break
+    
+    # 구슬들이 구멍에 들어가지 않고 않고 충돌했을 경우
+    if nrx != -1 and nry == nby and nrx == nbx:
+        if k == 0:
+            
+        elif k == 1:
+
+        elif k == 2:
+
+        elif k == 3:
+
+
+while True:
+    rx, ry, bx, by, dist = deque.popleft()
+    # 파란 구슬이 빠진다면
+    if bx == -1 and by == -1:
+        continue
+
+    if rx == -1 and rx == -1:
+        return dist
+
+    if dist < 10:
+        ndist = dist + 1
+        for k in range(4):
+            nrx, nry, nbx, nby = toNext(rx, ry, bx, by, k)
