@@ -80,4 +80,3 @@ for student in students:
 
 answer = contentCheck(room)
 print(answer)
-

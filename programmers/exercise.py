@@ -1,33 +1,28 @@
-# 프로그래머스 N-Queen
+# 프로그래머스 [1차] 캐시
 
-def diagonalPass(row, col):
-	for i in range(row):
-		# 행과 열의 차이가 같다면 동일 대각선에 있음
-		if row - i == abs(col-arr[i]):
-			return False
-	return True
+from collections import deque
+def solution(cacheSize, cities):
 
-def check(idx, n):
-	global answer, visited, arr
+    answer = 0
+    cache = []
 
-	if idx == n:
-		answer += 1
-		return
+    if cacheSize == 0:
+        return len(cities) * 5
 
-	for i in range(n):
-		# col / diagonal 체크
-		if not visited[i] and diagonalPass(idx, i):
-			visited[i] = 1 # 행 표시
-			arr[idx] = i # 열 표시
-			check(idx+1, n)
-			visited[i] = 0
+    for city in cities:
+        if city.lower() in cache:
+            cache.remove(city.lower())
+            cache.append(city.lower())
+            answer += 1
+        else:
+            if len(cache) == cacheSize:
+                cache.pop(0)
+            cache.append(city.lower())
+            answer += 5                
+    return answer
 
-def solution(n):
-	global answer, visited, arr
-	answer = 0
-	arr = [0] * n
-	visited = [0] * n
-	check(0, n)
-	return answer
 
-print(solution(4)) # 2
+print(solution(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"]))
+# 50
+print(solution(3, ["Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"]))
+# 21

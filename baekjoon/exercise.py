@@ -11,10 +11,6 @@
 
 # 최소 몇 번 만에 구멍을 통해 빼낼 수 있는가? / 10번 초과 -> -1
 
-# 1. DFS로 R을 O까지 이동
-# 2. R의 움직임에 따라 B를 움직이도록하고
-# 3. B가 O에 도착하는지 안하는지 보기
-
 from collections import deque
 
 dxy = [(0, 1), (0, -1), (1, 0), (-1, 0)]
@@ -24,64 +20,52 @@ board = [list(input()) for _ in range(n)]
 for i in range(n):
     for j in range(m):
         if board[i][j] == 'R':
-            rx, ry = i, j
+            srx, sry = i, j
         elif board[i][j] == 'B':
-            bx, by = i, j
+            sbx, sby = i, j
 
-def toNext(rx, ry, bx, by, k):
-    nrx, nry, nbx, nby = rx, ry, bx, by
+def move(x, y, dx, dy):
+    count = 0
+    while board[x+dx][y+dy] != '#' and board[x][y] != 'O':
+        x += dx
+        y += dy
+        count += 1
+    return x, y, count
 
-    while True:
-        nrx = nrx + dxy[k][0]
-        nry = nry + dxy[k][1]
-        
-        # 구멍
-        if board[nrx][nry] == 'O':
-            nrx, nry = -1, -1
+def bfs():
+    check = set()
+    queue = deque()
+    check.add((srx, sry, sbx, sby))
+    queue.append((srx, sry, sbx, sby, 1))
+
+    while queue:
+        rx, ry, bx, by, dist = queue.popleft()
+
+        if dist > 10:
             break
 
-        # 장애물, 벽
-        elif board[nrx][nry] == '#':
-            nrx = nrx - dxy[k][0]
-            nry = nry - dxy[k][1]
-            break
-
-    while True:
-        nbx = nbx + dxy[k][0]
-        nby = nby + dxy[k][1]
-
-        # 구멍
-        if board[nbx][nby] == 'O':
-            nbx, nby = -1, -1
-            break
-
-        # 장애물, 벽
-        elif board[nbx][nby] == '#':
-            nbx = nbx - dxy[k][0]
-            nby = nby - dxy[k][1]
-            break
+        for dx, dy in dxy:
+            nrx, nry, r_count = move(rx, ry, dx, dy)
+            nbx, nby, b_count = move(bx, by, dx, dy)
     
-    # 구슬들이 구멍에 들어가지 않고 않고 충돌했을 경우
-    if nrx != -1 and nry == nby and nrx == nbx:
-        if k == 0:
-            
-        elif k == 1:
 
-        elif k == 2:
+            if board[nbx][nby] == 'O': # 파란구슬이 구멍에 들어가면
+                continue
+            if board[nrx][nry] == 'O':
+                return dist
 
-        elif k == 3:
+            if nrx == nbx and nrx == nby: # 충돌
+                if r_count > b_count:
+                    nrx -= dx
+                    nry -= dy
+                else:
+                    nbx -= dx
+                    nby -= dy
 
+            if (nrx, nry, nbx, nby) not in check:
+                check.add((nrx, nry, nbx, nby))
+                queue.append((nrx, nry, nbx, nby, dist+1))
+        
+    return -1
 
-while True:
-    rx, ry, bx, by, dist = deque.popleft()
-    # 파란 구슬이 빠진다면
-    if bx == -1 and by == -1:
-        continue
-
-    if rx == -1 and rx == -1:
-        return dist
-
-    if dist < 10:
-        ndist = dist + 1
-        for k in range(4):
-            nrx, nry, nbx, nby = toNext(rx, ry, bx, by, k)
+print(bfs())
