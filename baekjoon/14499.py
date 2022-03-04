@@ -10,6 +10,7 @@
 # 바깥으로 이동시키려고 하는 경우, 해당 명령 무시
 
 # 동서북남 : 1234
+
 def rotate(order):
     ndice = [0] * 6
     if order == 0: # 동
@@ -47,10 +48,10 @@ def rotate(order):
 # 동서북남
 dxy = [(0 ,1), (0, -1), (-1, 0), (1, 0)]
 dice = [0] * 6
-
 n, m, x, y, k = map(int, input().split())
 floor = [list(map(int, input().split())) for _ in range(n)]
 orders = list(map(int, input().split()))
+
 for order in orders:
     order -= 1
     nx = x + dxy[order][0]
