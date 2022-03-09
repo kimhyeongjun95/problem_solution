@@ -1,80 +1,34 @@
-# 백준 2146 다리 만들기
+# 백준 23288 주사위 굴리기 2
 
-# 여러 섬
-# 한 섬과 다른 섬을 잇는 다리 하나만을 만들고 짧게 하기
+# 크기 N x M
+#  2
+# 413
+#  5
+#  6
 
-# n X n
-# 다리가 격자에서 차지하는 칸의 수가 가장 작은 다리
+# 4 5 1
+# 4 1 2 3 3
+# 6 1 1 3 3
+# 5 6 1 3 2
+# 5 5 6 5 5
 
-# 가장 짧은 다리 하나를 놓아 두 대륙을 연결하는 방법
+# 주사위 지도 윗면 1 동쪽 3
+# 처음 이동방향 동쪽
 
-# 0 바다 1 육지
+# 1. 주사위가 이동 방향으로 한 칸
+#    if 방향에 칸 x, 반대로 한 칸
+# 2. 도착한 칸에 대한 점수 획득
+# 3. 아랫면에 있는 정수 A, 주사위가 있는 칸 B 비교해 이동 방향 결정
+#    A > B : 90도 시계 방향
+#    A < B : 90도 반시계 방향
+#    A = B인 경우 이동 방향에 변화는 없다.
 
-from collections import deque
+# (x, y)있는 정수 B
+# 동서남북 방향으로 연속해서 이동할 수 있는 칸의 수 C 모두 구한다.
+# 이때 이동할 수 있는 칸에는 모두 정수 B가 있어야 한다.
+# 여기서 점수는 B와 C를 곱한다.
 
-dxy = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+# 이동 횟수 K, 이동에서 획득하는 점수의 합 구하기
 
-# 섬을 각각 2부터 시작해서 indexing
-def idxing(x, y, count):
-    queue = deque([])
-    queue.append((x, y))
-    visited[x][y] = 1
-    arr[x][y] = count
-
-    while queue:
-        x, y = queue.popleft()
-
-        for dx, dy in dxy:
-            nx = x + dx
-            ny = y + dy
-
-            if -1 < nx < n and -1 < ny < n and arr[nx][ny] == 1 and not visited[nx][ny]:
-                visited[nx][ny] = 1
-                arr[nx][ny] = count
-                queue.append((nx, ny))
-
-# 거리 구하기
-def bfs(count):
-    global answer
-    dist = [[-1] * n for _ in range(n)]
-    queue = deque([])
-
-    for i in range(n):
-        for j in range(n):
-            if arr[i][j] == count:
-                queue.append((i, j))
-                dist[i][j] = 0
-    
-    while queue:
-        x, y = queue.popleft()
-        for dx, dy in dxy:
-            nx = x + dx
-            ny = y + dy
-
-            if -1 < nx < n and -1 < ny < n:
-                # 바다를 만나면
-                if arr[nx][ny] == 0 and dist[nx][ny] == -1:
-                    dist[nx][ny] = dist[x][y] + 1
-                    queue.append((nx, ny))
-                # 다른 다리와 만나면 최소값
-                if arr[nx][ny] > 1 and arr[nx][ny] != count:
-                    answer = min(answer, dist[x][y])
-                    return
-
-
-n = int(input())
+n, m, k = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(n)]
-answer = float('inf')
-count = 2
-
-for i in range(n):
-    for j in range(n):
-        visited = [[0] * n for _ in range(n)]
-        if arr[i][j] == 1 and not visited[i][j]:
-            idxing(i, j, count)
-            count += 1
-
-for i in range(2, count):
-    bfs(i)
-
-print(answer)
