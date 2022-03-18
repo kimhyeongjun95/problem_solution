@@ -41,6 +41,7 @@ def solution(info, query):
         # 위에 key와 같은 detail
         detail = ''.join(q[:-1])
         value = int(q[-1])
+        count = 0
         if check[detail]:
             temp = check[detail]
             idx = bisect_left(temp, value)
