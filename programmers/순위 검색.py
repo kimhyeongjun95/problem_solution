@@ -10,7 +10,7 @@
 
 from collections import defaultdict
 from itertools import combinations
-from bisect import bisect_left
+from bisect import bisect_left, bisect_right
 def solution(info, query):
     
     check = defaultdict(list)
@@ -46,6 +46,7 @@ def solution(info, query):
             temp = check[detail]
             idx = bisect_left(temp, value)
             count = len(temp) - idx
+            print(idx, detail, temp, value, count)
         answer.append(count)
     return answer
 

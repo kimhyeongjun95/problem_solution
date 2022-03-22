@@ -28,3 +28,61 @@ dxy = [
     (-1, 0), (-1, -1), (0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1)
 ]
 
+answer = 0
+arr = [[False] * 2 for _ in range(4) for _ in range(4)]
+
+for i in range(4):
+    temp = list(map(int, input().split()))
+    for j in range(4):
+        arr[i][j][0] = temp[j*2]
+        arr[i][j][1] = temp[j*2+1] - 1
+
+def rotate(dir):
+    return (dir + 1) % 8
+
+def finder(arr, idx):
+    for i in range(4):
+        for j in range(4):
+            if arr[i][j][0] == idx:
+                return (i, j)
+    return False
+
+def move_fish(arr, tx, ty):
+    for i in range(1, 17):
+        temp = finder(arr, i)
+        if temp:
+            x, y = temp[0], temp[1]
+            dir = arr[x][y][1]
+
+            for dx, dy in dxy:
+                nx = x + dx
+                ny = y + dy
+                if -1 < nx < 4 and -1 < ny < 4:
+                    if nx != tx and ny != ty:
+                        arr[x][y][1] = dir
+                        arr[x][y], arr[nx][ny] = arr[nx][ny], arr[x][y]
+                        break
+                dir = rotate(dir)
+
+def move_shark(arr, nx, ny):
+    possible = []
+    dir = arr[nx][ny][1]
+
+    for i in range(4):
+        nx += dxy[dir][0]
+        ny += dxy[dir][1]
+        if -1 < nx < 4 and -1 < ny < 4:
+            if arr[nx][ny][0]
+
+def dfs(arr, nx, ny, count):
+    global answer
+
+    arr = arr.copy()
+    count += arr[nx][ny][0] # 물고기 먹기
+    arr[nx][ny][0] = -1 
+
+    move_fish(arr, nx, ny)
+    possible = move_shark(arr, nx, ny)
+
+
+dfs(arr, 0, 0, 0)
