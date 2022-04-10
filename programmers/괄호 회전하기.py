@@ -15,7 +15,6 @@
 # return s 올과문 x의 개수
 
 from collections import deque
-impossible = ['}', ']', ')']
 def check(s):
     stack = []
     for i in s:
@@ -35,7 +34,6 @@ def check(s):
             stack.append(i)
     if stack:
         return False
-    print(s, stack)
     return True
 
 def solution(s):
