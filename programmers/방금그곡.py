@@ -46,18 +46,14 @@ def solution(m, musicinfos):
             else:
                 temp += info[idx % length]
                 idx += 1
-        print(temp)
-
 
         # 2
         long = len(m)
         for i in range(len(temp)-long+1):
+            # 샵 있으면 안됌..
             if m[-1] != '#' and temp[(i+long) % len(temp)] == '#':
                 continue
-            print(i, i+long, (i+long+1)%len(temp))
-            print(m, temp[i:i+long])
             if m == temp[i:i+long]:
-                print(m, temp[i:i+long], '이때됌')
                 # 2-1, 2-2를 위해
                 result.append((title, time, count))
                 break
@@ -70,7 +66,6 @@ def solution(m, musicinfos):
         return "(None)"
     
     # 2-1, 2-2
-    print(result)
     result.sort(key = lambda x : (-x[1], x[2]))
     return result[0][0]
 
