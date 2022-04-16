@@ -8,7 +8,7 @@
 # 2. 소수인지 판별
 # 3. 소수라면 answer += 1
 
-from itertools import combinations, permutations
+from itertools import permutations
 def solution(numbers):
 
     answer = 0
