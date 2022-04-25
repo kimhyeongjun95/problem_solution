@@ -26,39 +26,39 @@ function solution(n, info) {
 	let answer = Array(11).fill(0);
 	let maxNum = 0;
 
-	const finder = (apeach, ryan, arrow, idx, arr) => {
-		if (n < arrow) return;
+	const find = (apeach, lion, idx, arrow, arr) => {
+		if (arrow > n) return;
 
-		// 모두 탐색한 경우(10점까지 탐색)
+		// 모두 탐색
 		if (idx > 10) {
-			let score = ryan - apeach;
-			
-			if (maxNum < score) {
+			let score = lion - apeach;
+
+			if (score > maxNum) {
 				arr[10] = n - arrow;
 				maxNum = score;
 				answer = arr;
 			}
-			return;
-		}
+			return
+		};
 
-		// 라이언이 이긴 경우
-		if (n > arrow) {
+		// 라이언 승리
+		if (arrow < n) {
 			let next = [...arr];
 			next[10-idx] = info[10-idx] + 1;
-			// ryan + idx (idx는 지금 보고있는 점수만큼 +)
-			finder(apeach, ryan + idx, arrow + info[10-idx] + 1, idx+1, next)
+			find(apeach, lion + idx, idx + 1, arrow + info[10-idx] + 1, next)
 		}
+
+		// 어피치 승리
 		if (info[10-idx] > 0) {
-			// 어피치가 이긴 경우
-			finder(apeach + idx, ryan, arrow, idx+1, arr)
+			find(apeach + idx, lion, idx+1, arrow, arr);
 		} else {
-			// 둘다 점수 X
-			finder(apeach, ryan, arrow, idx+1, arr)
+			// 무승부
+			find(apeach, lion, idx+1, arrow, arr);
 		}
 	}
 
-	finder(0, 0, 0, 0, answer)
-	return maxNum <= 0 ? [-1] : answer;
+	find(0, 0, 0, 0, answer);
+	return maxNum > 0 ? answer : [-1]
 }
 
 console.log(solution(5, [2,1,1,1,0,0,0,0,0,0,0]))
