@@ -39,6 +39,7 @@ function solution(files) {
 				return [num, file.slice(i, file.length)];
 			}
 		}
+		return [num, file.slice(file.length, file.length)];
 	}	
 
 	const transNums = (num) => {
@@ -47,7 +48,9 @@ function solution(files) {
 				return num.slice(i, num.length);
 			}
 		}
+		return '';
 	}
+
 	let result = [];
 	for (let i = 0; i < files.length; i++) {
 		let file = files[i]
@@ -56,21 +59,50 @@ function solution(files) {
 		let transHead = head.join('').toLowerCase();
 		let transNum = 0;
 		if (num[0] === '0') {
-			transNum = Number(transNums(num).join(''));
+			let sum = num.reduce((a, b) => Number(a + b), 0);
+			if (sum !== 0) {
+				transNum = Number(transNums(num).join(''));
+			} else {
+				transNum = '';
+			}
 		} else {
 			transNum = Number(num.join(''));
 		}
-
 		result.push([head, transHead, num, transNum, tail]);
 	}
-	console.log(result);
-	result.sort((a, b, c, d, e) => {
-		return b - d - e
+	result.sort((a, b) => {
+		if (a[1] > b[1]) {
+			return 1;
+		} else if (a[1] < b[1]) {
+			return -1;
+		}
+		
+
+		if (a[3] > b[3]) {
+			return 1;
+		} else if (a[3] < b[3]) {
+			return -1;
+		}
+		return 0;
 	})
-	console.log(result, 'sorted');
+	console.log(result);
+	for (let i of result) {
+		answer.push(i[0].join('') + i[2].join('') + i[4])
+	}
 
     return answer;
 }
 
 console.log(solution(["img12.png", "img10.png", "img02.png", "img1.png", "IMG01.GIF", "img2.JPG"]))
+console.log(solution(["img000012345", "img1.png","img2","IMG02"]))
+// console.log(solution(["img0000123aa", "img00000.345", "img001a00png", "img2", "IMG02"]))
+// console.log(solution(["F-5 Freedom Fighter", "B-50 Superfortress", "A-10 Thunderbolt II", "F-14 Tomcat"]))
+// console.log(solution(["img00000.345"]))
 // ["img1.png", "IMG01.GIF", "img02.png", "img2.JPG", "img10.png", "img12.png"]
+
+// if (a[1] > b[1]) {
+// 	return 1;
+// } else if (a[1] < b[1]) {
+// 	return -1;
+// }
+
