@@ -1,47 +1,41 @@
-# 프로그래머스 (2021 카카오) 메뉴 리뉴얼
+# 프로그래머스 (2018 카카오 3차) 압축
 
-# 단품메뉴 -> 코스요리
-# 코스요리 : 1. 최소 2가지 이상의 단품메뉴 구성
-#            2. 2명 이상의 손님으로부터 주문된 단품메뉴 조합
+# LZW 압축
 
-# 오름차순으로 정렬 return
+# 1. 알파벳 base 사전 만들기
+# 2. 현재 입력(w)이 in check 중 가장 긴 문자열 찾기:
+# 2-1. answer에 check (w)val push
+# 2-2. check에 w + c : val
 
 from collections import defaultdict
-from itertools import combinations
-def solution(orders, course):
+def solution(msg):
 
+    alpha = ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     check = defaultdict(int)
-    for cor in course:
-        for order in orders:
-            for combo in combinations(order, cor): 
-                combo = ''.join(sorted(combo))
-                check[combo] += 1
-    check = sorted(check.items(), key = lambda x: x[1], reverse=True)
+    for i in range(1, len(alpha)):
+        check[alpha[i].upper()] = i
+    idx = 0
+    idx_r = 0
     result = []
-    for cor in course:
-        temp = []
-        for key, val in check:
-            if cor == len(key) and val >= 2:
-                temp.append((key, val))
-        result.append(temp)
-    answer = []
-    for i in result:
-        if not i:
-            continue
-        temp = []
-        base = i[0][1]
-        for j in range(len(i)):
-            if base != i[j][1]:
-                break
-            temp.append(i[j][0])
-        answer.extend(temp)
-    answer.sort()
-    return answer
+    count = 27
+    while idx < len(msg):
+        # 2
+        while check[msg[idx:idx_r]]:
+            idx_r += 1
+        # 2-1
+        print(check[msg[idx:idx_r+1]])
+        result.append(check[msg[idx:idx_r+1]])
+        check[msg[idx:idx_r+2]] = count
+        print(result)
+        print(check)
+        idx = idx_r + 1
+        idx_r = idx
+        count += 1
+        
 
-# print(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4]))
-# ["AC", "ACDE", "BCFG", "CDE"]
-# print(solution(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2, 3, 5]))
-# ["ACD", "AD", "ADE", "CD", "XYZ"]
-print(solution(["XYZ", "XWY", "WXA"], [2, 3, 4]))
-# ["WX", "XY"]
-
+print(solution("KAKAO"))
+# [11, 1, 27, 15]
+# print(solution("TOBEORNOTTOBEORTOBEORNOT"))
+# [20, 15, 2, 5, 15, 18, 14, 15, 20, 27, 29, 31, 36, 30, 32, 34]
+# print(solution("ABABABABABABABAB"))
+# [1, 2, 27, 29, 28, 31, 30]
