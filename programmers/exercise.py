@@ -18,19 +18,14 @@ def solution(msg):
     idx_r = 0
     result = []
     count = 27
-    while idx < len(msg):
-        # 2
-        while check[msg[idx:idx_r]]:
-            idx_r += 1
-        # 2-1
-        print(check[msg[idx:idx_r+1]])
-        result.append(check[msg[idx:idx_r+1]])
-        check[msg[idx:idx_r+2]] = count
-        print(result)
-        print(check)
-        idx = idx_r + 1
-        idx_r = idx
-        count += 1
+    temp = []
+    for i in range(len(msg)):
+        if not temp:
+            temp.append(msg[i])
+        
+        if not check[''.join(temp)]:
+            popped = temp.pop()
+            result.append(check[''.join(temp)])
         
 
 print(solution("KAKAO"))
