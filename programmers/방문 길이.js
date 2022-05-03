@@ -11,19 +11,15 @@
 
 // 처음 걸어본 길의 길이 return
 
-// 1. 11 x 11 배열 생성
-// 2. 출발점은 5, 5
-// 3. 방문처리
-// 4. 방문 배열에서 1 다 더하기
-
 function solution(dirs) {
-  dxy = [
-    [1, 0], // U
-    [-1, 0], // D
+  let dxy = [
+    [-1, 0], // U
+    [1, 0], // D
     [0, 1], // R
     [0, -1] // L
   ]
 
+  let cmd = []
   let check = new Set();
   let x = 0;
   let y = 0;
@@ -31,24 +27,28 @@ function solution(dirs) {
   let ny = 0;
   for (let dir of dirs) {
     if (dir === 'U') {
-      cmd = dxy[0];
+      cmd = dxy[0]
     } else if (dir === 'D') {
-      cmd = dxy[1];
+      cmd = dxy[1]
     } else if (dir === 'R') {
-      cmd = dxy[2];
+      cmd = dxy[2]
     } else if (dir === 'L') {
-      cmd = dxy[3];
+      cmd = dxy[3]
     }
-    
-    nx = x + cmd[0];
-    ny = y + cmd[1];
+
+    nx = x + cmd[0]
+    ny = y + cmd[1]
+
     if (-6 < nx && nx < 6 && -6 < ny && ny < 6) {
-      check.add("" + x + y + nx + ny);
-      check.add("" + nx + ny + x + y);
+      check.add("" + x + y + nx + ny)
+      check.add("" + nx + ny + x + y)
       x = nx;
       y = ny;
     }
+    
+
   }
+
   return check.size / 2;
 }
 
