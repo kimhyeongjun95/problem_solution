@@ -29,7 +29,7 @@ for i in range(h):
 def find():
     queue = deque([(sx, sy)])
     # 출발점 방문처리
-    visited[sx][sy] = 1
+    visited[sx][sy] = 0
 
     while queue:
 

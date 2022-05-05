@@ -9,60 +9,60 @@
 // 장르에 속한 곡이 하나라면, 하나의 곡만 선택
 
 // 1. 장르당 재생 수 구하기
+// 1-1. 장르 재생 순으로 정렬
 // 2. 장르당 많이 재생된 노래 구하기
+// 2-2. 2개씩 구하기
 // 3. 고유 번호 순 저장
 
 function solution(genres, plays) {
-	// let check = {};
-	// // 1
-	// for (let i = 0; i < plays.length; i++) {
-	// 	check[genres[i]] = (!check[genres[i]]) ? plays[i] : check[genres[i]] + plays[i];
-	// 	console.log(check);
-	// }
+    let check = {};
+	// 1
+	for (let i = 0; i < genres.length; i++) {
+		check[genres[i]] = check[genres[i]] ? check[genres[i]] + plays[i] : plays[i]
+	}
 
-	let play = {};
-	for(let i=0; i < genres.length; i++){
-		play[genres[i]] = (!play[genres[i]]) ? plays[i] : play[genres[i]] + plays[i];
+	let temp = [];
+	for (let [key, val] of Object.entries(check)) {
+		temp.push([key, val])
 	}
-	// 장르 순서만
-	let order = [];
-	// 역순 정렬
-	play = Object.entries(play).sort((a,b)=>b[1]-a[1]);
-	console.log(play);
-	for(let i in play){
-			order.push(play[i][0]);
+	temp.sort((a, b) => {
+		if (a[1] > b[1]) return -1;
+		if (b[1] > a[1]) return 1;
+		return 0;
+	})
+	// 1-1
+	temp = temp.map((v) => v[0]);
+
+	// 2
+	let songs = [];
+	for (let i = 0; i < genres.length; i++) {
+		songs.push([genres[i], plays[i], i])
 	}
-	console.log(order);
-	
-	let answer = [];
-	for (let i = 0; i < order.length; i++) {
-		let gen = order[i];
-		let stack = {};
-		console.log(gen);
-		for (let j = 0; j < genres.length; j++) {
-			if (genres[j] === gen) {
-				stack[j] = plays[j]
-			}
-		}
-		console.log(stack, '1');
-		stack = Object.entries(stack).sort((a, b) => b[1] - a[1]);
+	songs.sort((a, b) => {
+		if (a[0] > b[0]) return -1;
+		if (a[0] < b[0]) return 1;
+
+		if (a[1] > b[1]) return -1;
+		if (a[1] < b[1]) return 1;
+		return 0;
+	});
+	// 2-1
+	let result = [];
+	for (let genre of temp) {
 		let count = 0;
-		for (let k =0; k < stack.length; k++) {
-			count += 1;
-			if (count > 2) {
-				break;
+		for (let i = 0; i < genres.length; i++) {
+			if (genre === songs[i][0]) {
+				count += 1;
+				result.push(songs[i][2])
 			}
-			answer.push(Number(stack[k][0]))
+			if (count > 1) break; 
 		}
-		console.log(stack)
-		console.log(answer);
 	}
-	return answer;
+	return result;
 }
-
 
 console.log(solution(
 	["classic", "pop", "classic", "classic", "pop"],
-	[500, 600, 150, 800, 2500]
+	[500, 600, 150, 800, 2500],
 ))
 // [4, 1, 3, 0]

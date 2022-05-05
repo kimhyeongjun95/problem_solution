@@ -51,3 +51,39 @@ console.log(solution("JAN"))
 // 23
 console.log(solution("JAZ"))
 // 11
+
+// 프로그래머스 조이스틱
+
+// 알파벳으로 이름 완성, 맨 처음엔 A로만 이루어짐
+// ex) 완성 글자가 세 글자면 AAA, 네 글자면 AAAA
+
+// 조이스틱 조작횟수 최솟값 return 
+
+// 1. 아스키 코드 변환
+// 1-1. M 이하
+// 1-2. N 이하
+// 2. 되돌아 가야하는경우 count 계산
+// 3. count return
+
+function solution(name) {
+	let count = 0;
+	let s = "A".repeat(name.length);
+	for (let i = 0; i < name.length; i++) {
+		// console.log(name.charCodeAt(i));
+		if (name.charCodeAt(i) < 78) {
+			// M 이하
+			count += charCodeAt(i) - 65;
+		} else {
+			// N 이상
+			count += 91 - charCodeAt(i);
+		}
+		
+		if 
+
+	}
+}
+
+console.log(solution("JEROEN"))
+// 56
+console.log(solution("JAN"))
+// 23
