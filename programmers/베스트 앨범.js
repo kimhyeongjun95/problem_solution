@@ -38,14 +38,16 @@ function solution(genres, plays) {
 	for (let i = 0; i < genres.length; i++) {
 		songs.push([genres[i], plays[i], i])
 	}
+	console.log(songs);
 	songs.sort((a, b) => {
 		if (a[0] > b[0]) return -1;
 		if (a[0] < b[0]) return 1;
-
+		
 		if (a[1] > b[1]) return -1;
 		if (a[1] < b[1]) return 1;
 		return 0;
 	});
+	console.log(songs);
 	// 2-1
 	let result = [];
 	for (let genre of temp) {
