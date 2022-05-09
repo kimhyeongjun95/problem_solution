@@ -75,6 +75,8 @@ location = deque(location)
 
 while location:
     virus, time, x, y = location.popleft()
+    if time == S:
+        break
 
     for dx, dy in dxy:
         nx = x + dx
@@ -83,8 +85,6 @@ while location:
         if -1 < nx < n and -1 < ny < n:
             if arr[nx][ny] == 0:
                 arr[nx][ny] = virus
-                if time + 1 == S:
-                    continue
                 location.append((virus, time + 1, nx, ny))
 
 print(arr[target_x-1][target_y-1])
