@@ -28,7 +28,6 @@ def solution(s):
 # print(solution("afdsgologe")) # 5
 
 # 프로그래머스 모범 답안
-
 # def longest_palindrom(s):
 #     for i in range(len(s),0,-1):
 #         for j in range(len(s)-i+1):
