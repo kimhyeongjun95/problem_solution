@@ -19,6 +19,7 @@ cost = -1
 
 while max(dp[cost]) < m:
     dp.append([0 for _ in range(n+1)])
+    # 최소 비용
     cost += 1
 
     for i in range(n):
