@@ -8,22 +8,19 @@ def solution(m, n, puddles):
 		x -= 1
 		y -= 1
 		if x == 0:
-			for i in range(1, m):
-				dp[0][i] = 0
-		if y == 0:
-			for i in range(1, n):
+			for i in range(y, n):
 				dp[i][0] = 0
-		dp[x][y] = 0
-	for i in dp:
-		print(i)
+		if y == 0:
+			for i in range(x, m):
+				dp[0][i] = 0
+		dp[y][x] = 0
 
 	for i in range(1, n):
 		for j in range(1, m):
 			if dp[i][j] == 0:
 				continue
 			dp[i][j] = dp[i-1][j] + dp[i][j-1]
-	for i in dp:
-		print(i)
+
 	return dp[n-1][m-1] % 1000000007
 
 print(solution(4, 3, [[2, 2]]))
