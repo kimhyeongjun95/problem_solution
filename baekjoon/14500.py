@@ -22,6 +22,9 @@
 # 4-2. edge가 3개인 경우
 # 4.3. edge가 4개인 경우 계산
 
+import sys
+input = sys.stdin.readline
+
 dxy = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 n, m = map(int, input().split())
 arr = [list(map(int, input().split())) for _ in range(n)]
