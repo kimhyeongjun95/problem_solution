@@ -7,18 +7,16 @@
 
 n = int(input())
 arr = list(map(int, input().split()))
-answer = []
 stack = []
+answer = []
 
-for i in range(n):
-    
-    while stack:
-        if stack[-1][1] > arr[i]:
-            answer.append(stack[-1][0] + 1)
-            break
+for i in range(len(arr)):
+    while stack and stack[-1][1] < arr[i]:
         stack.pop()
     if not stack:
         answer.append(0)
+    else:
+        answer.append(stack[-1][0] + 1)
     stack.append((i, arr[i]))
 
 print(*answer)
