@@ -14,12 +14,11 @@ arr = []
 for _ in range(N):
     s, e = map(int, input().split())
     arr.append((s, e))
-arr.sort(key = lambda x: x[1])
+arr.sort(key = lambda x: (x[1], x[0]))
 
 count = 0
 point = 0
 for s, e in arr:
-    print(s, e)
     if point <= s:
         count += 1
         point = e
