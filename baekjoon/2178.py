@@ -16,7 +16,6 @@ visited = [[0] * M for _ in range(N)]
 dxy = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 queue = deque([(0, 0)])
 visited[0][0] = 1
-answer = 0
 
 while queue:
     x, y = queue.popleft()
