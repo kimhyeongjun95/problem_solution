@@ -7,25 +7,20 @@
 
 # 수빈이가 동생을 찾는 가장 빠른 시간 출력
 
-# 1. K가 N보다 큰지 작은지 확인
-# 2. 완전탐색
+from collections import deque
 
-def find(count, now):
-    global answer
-
-    if now == K:
-        answer = min(answer, count)
-        return
-    if count > 100000 or now < 0 or now > 100000:
-        return
-    
-    if ((now - 1) * 2) - K < ((now * 2) - 1) - K:
-        find(count + 1, now - 1)
-    else:
-        find(count + 1, now * 2)
-    
+def find():
+    queue = deque([(N)])
+    visited = [0] * 100001
+    while queue:
+        x = queue.popleft()
+        if x == K:
+            return visited[x]
+        for i in (x-1, x+1, x*2):
+            if 0 <= i <= 100000 and not visited[i]:
+                queue.append((i))
+                visited[i] = visited[x] + 1
 
 N, K = map(int, input().split())
-answer = float('inf')
-find(0, N)
+answer = find()
 print(answer)
