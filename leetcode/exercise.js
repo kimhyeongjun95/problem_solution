@@ -1,21 +1,22 @@
-// coins: different denominations
-// amount: total amount of money
-
-// return the fewest number of coins
-// to make up that amount
-
-// if cannot be made, return -1
+// return
+// the length of the longest strictly increasing subsequence
 
 /**
- * @param {number[]} coins
- * @param {number} amount
+ * @param {number[]} nums
  * @return {number}
  */
-var coinChange = function (coins, amount) {};
+var lengthOfLIS = function (nums) {
+    let answer = 1;
+    const dp = Array(nums.length + 1).fill(0);
 
-console.log(coinChange([1, 2, 5], 11));
+    return answer;
+};
+
+console.log(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18]));
+// 4
+console.log(lengthOfLIS([0, 1, 0, 3, 2, 3]));
+// 4
+console.log(lengthOfLIS([7, 7, 7, 7, 7, 7, 7]));
+// 1
+console.log(lengthOfLIS([4, 10, 4, 3, 8, 9]));
 // 3
-console.log(coinChange([2], 3));
-// -1
-console.log(coinChange([1], 0));
-// 0
